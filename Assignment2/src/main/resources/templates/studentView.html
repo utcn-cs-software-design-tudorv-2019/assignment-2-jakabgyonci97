@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/DarkTheme.css}"/>
+</head>
+<body>
+<div class="form-container" xmlns:th="http://www.thymeleaf.org">
+    <form th:object="${studentInfo}" method="GET">
+        <label>Student Identification Number</label>
+        <input type="text" th:field="*{idStudent}" readonly/>
+        <br/><br/>
+
+        <label>Group</label>
+        <input type="text" th:field="*{studGroup}" readonly/>
+        <br/><br/>
+
+        <label>Scholarship Status</label>
+        <input type="text" th:field="*{scholarShipState}" readonly/>
+        <br/><br/>
+
+        <label>Average</label>
+        <input type="text" th:field="*{gradeAvrg}" readonly/>
+        <br/><br/>
+
+    </form>
+</div>
+</body>
+</html>

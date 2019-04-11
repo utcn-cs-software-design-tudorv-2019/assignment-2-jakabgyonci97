@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/DarkTheme.css}"/>
+</head>
+<body>
+<div class="form-container" xmlns:th="http://www.thymeleaf.org">
+    <form th:object="${personalInfo}" method="GET">
+        <label>First Name</label>
+        <input type="text" th:field="*{firstName}" readonly/>
+        <br/><br/>
+
+        <label>Last Name</label>
+        <input type="text" th:field="*{lastName}" readonly/>
+        <br/><br/>
+
+        <label>Identity Card Number</label>
+        <input type="text" th:field="*{icn}" readonly/>
+        <br/><br/>
+
+        <label>Personal Numerical Code</label>
+        <input type="text" th:field="*{pnc}" readonly/>
+        <br/><br/>
+    </form>
+</div>
+</body>
+</html>

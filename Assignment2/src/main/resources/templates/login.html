@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>CS Department - Login</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/DarkTheme.css}"/>
+</head>
+<body>
+    <div>
+        <div class="form-container" xmlns:th="http://www.thymeleaf.org">
+            <form th:object="${user}" method="POST">
+
+                User Name: &nbsp;
+                <input type="text" th:field="*{userName}" pattern="[A-Za-z0-9_]+"{15}/>
+                <br/><br/>
+                Password: &nbsp;
+                <input type="password" th:field="*{userPassword}" pattern="[A-Za-z0-9_+!?~&$@]+"{10}/>
+                <br/><br/>
+
+                <input type="submit" value="Login" />
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

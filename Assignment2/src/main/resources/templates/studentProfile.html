@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/DarkTheme.css}"/>
+</head>
+<body>
+
+<div class="form-container" xmlns:th="http://www.thymeleaf.org">
+    <form th:object="${student}" method="GET">
+        <label>Student ID</label>
+        <input type="text" th:field="*{studentid}" readonly/>
+        <br/><br/>
+
+        <label>User ID</label>
+        <input type="text" th:field="*{userid}" readonly/>
+        <br/><br/>
+    </form>
+    <form method="POST">
+        <input type="submit" name="action" value="personal" />
+        <input type="submit" name="action" value="student" />
+        <input type="submit" name="action" value="contact" />
+        <input type="submit" name="action" value="enrollment" />
+    </form>
+</div>
+</body>
+
+</html>
+

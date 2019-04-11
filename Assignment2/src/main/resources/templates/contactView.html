@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Welcome</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/DarkTheme.css}"/>
+</head>
+<body>
+<div class="form-container" xmlns:th="http://www.thymeleaf.org">
+    <form th:object="${contactInfo}" method="GET">
+        <label>Address</label>
+        <input type="text" th:field="*{address}" readonly/>
+        <br/><br/>
+
+        <label>Phone number</label>
+        <input type="text" th:field="*{phoneNumber}" readonly/>
+        <br/><br/>
+
+        <label>Email address</label>
+        <input type="text" th:field="*{emailAddress}" readonly/>
+        <br/><br/>
+
+    </form>
+</div>
+</body>
+</html>
