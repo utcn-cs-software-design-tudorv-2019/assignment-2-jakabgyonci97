@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Welcome</title>
     <link rel="stylesheet" type="text/css" th:href="@{/DarkTheme.css}"/>
 </head>
@@ -15,7 +15,7 @@
             <th>Scholarship Status</th>
             <th>Average</th>
         </tr>
-        <tr th:each ="studentProfile : ${studentProfiles}">
+        <tr th:each="studentProfile : ${studentProfiles}">
             <td th:utext="${studentProfile.firstName}">...</td>
             <td th:utext="${studentProfile.lastName}">...</td>
             <td th:utext="${studentProfile.group}">...</td>

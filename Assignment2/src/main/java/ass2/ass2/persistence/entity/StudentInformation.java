@@ -6,31 +6,32 @@ import java.io.Serializable;
 @Entity
 @Table(name = "studentinformation")
 public class StudentInformation implements Serializable {
-    public static final String[] SCHOLARSHIP = {"NONE","MERIT","ACADEMIC"};
-    public static boolean isValidScholarShip(String status){
-        for(String itr: SCHOLARSHIP)
-            if(itr.compareTo(status)==0) return true;
+    public static final String[] SCHOLARSHIP = {"NONE", "MERIT", "ACADEMIC"};
+
+    public static boolean isValidScholarShip(String status) {
+        for (String itr : SCHOLARSHIP)
+            if (itr.compareTo(status) == 0) return true;
         return false;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "studInfoId",nullable = false)
-    private int studInfoId;
+    @Column(name = "studentinfoid", nullable = false)
+    private int studentId;
 
-    @Column(name = "idStudent",nullable = false)
+    @Column(name = "idstudent", nullable = false)
     private int idStudent;
 
-    @Column(name = "studGroup", length = 8)
+    @Column(name = "studgroup", length = 8)
     private String studGroup;
 
-    @Column(name = "scholarShipState", length = 10)
+    @Column(name = "scholarshipstate", length = 10)
     private String scholarShipState;
 
-    @Column(name = "gradeAvrg")
+    @Column(name = "average")
     private double gradeAvrg;
 
-    public StudentInformation(){
+    public StudentInformation() {
         super();
     }
 
@@ -41,12 +42,12 @@ public class StudentInformation implements Serializable {
         this.gradeAvrg = gradeAvrg;
     }
 
-    public int getStudInfoId() {
-        return studInfoId;
+    public int getStudentId() {
+        return studentId;
     }
 
-    public void setStudInfoId(int studInfoId) {
-        this.studInfoId = studInfoId;
+    public void setStudentId(int studentId) {
+        this.studentId = studentId;
     }
 
     public String getStudGroup() {
@@ -92,7 +93,7 @@ public class StudentInformation implements Serializable {
     @Override
     public String toString() {
         return "StudentInformation{" +
-                "id=" + studInfoId +
+                "id=" + studentId +
                 ", idStudent=" + idStudent +
                 ", group='" + studGroup + '\'' +
                 ", scholarShipState=" + scholarShipState +
@@ -100,9 +101,9 @@ public class StudentInformation implements Serializable {
                 '}';
     }
 
-    public StudentInformation clone(){
+    public StudentInformation clone() {
         StudentInformation si = new StudentInformation();
-        si.setStudInfoId(this.studInfoId);
+        si.setStudentId(this.studentId);
         si.setIdStudent(this.idStudent);
         si.setGroup(this.studGroup);
         si.setScholarShipState(this.scholarShipState);

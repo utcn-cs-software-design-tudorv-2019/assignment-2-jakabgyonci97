@@ -4,24 +4,24 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="enrollment")
+@Table(name = "enrollment")
 public class Enrollment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "enrollmentId",nullable = false)
+    @Column(name = "idenrollment", nullable = false)
     private int enrollmentId;
 
-    @Column(name = "idCourse",nullable = false)
+    @Column(name = "idcourse", nullable = false)
     private int idCourse;
 
-    @Column(name = "idStudent",nullable = false)
+    @Column(name = "idstudent", nullable = false)
     private int idStudent;
 
-    @Column(name = "finalGrade")
+    @Column(name = "finalgrade")
     private double finalGrade;
 
-    public Enrollment(){
+    public Enrollment() {
         super();
     }
 

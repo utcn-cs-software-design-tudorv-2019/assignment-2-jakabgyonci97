@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="personalinformation")
+@Table(name = "personalinformation")
 public class PersonalInformation implements Serializable {
 
     @Id
@@ -15,10 +15,10 @@ public class PersonalInformation implements Serializable {
     @Column(name = "idstudent", nullable = false)
     private int idStudent;
 
-    @Column(name = "first_name", length = 15)
+    @Column(name = "firstname", length = 15)
     private String firstName;
 
-    @Column(name = "last_name", length = 15)
+    @Column(name = "lastname", length = 15)
     private String lastName;
 
     @Column(name = "icn", length = 8)
@@ -27,7 +27,7 @@ public class PersonalInformation implements Serializable {
     @Column(name = "pnc", length = 13)
     private String pnc;
 
-    public PersonalInformation(){
+    public PersonalInformation() {
         super();
     }
 
@@ -99,7 +99,7 @@ public class PersonalInformation implements Serializable {
                 '}';
     }
 
-    public PersonalInformation clone(){
+    public PersonalInformation clone() {
         PersonalInformation pi = new PersonalInformation();
         pi.setIdPersonal(this.idPersonal);
         pi.setIdStudent(this.idStudent);

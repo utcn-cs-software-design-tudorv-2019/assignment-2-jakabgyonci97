@@ -13,13 +13,13 @@ public class StudentActivity implements Serializable {
     @Column(name = "idactivity", nullable = false)
     private int studActId;
 
-    @Column(name = "idStudent", nullable = false)
+    @Column(name = "idstudent", nullable = false)
     private int idStudent;
 
-    @Column(name = "activityDate")
+    @Column(name = "activitydate")
     private Date activityDate;
 
-    @Column(name = "activityType", length = 10)
+    @Column(name = "activitytype", length = 10)
     private String activityType;
 
     @Column(name = "description", length = 200)
@@ -86,7 +86,8 @@ public class StudentActivity implements Serializable {
         }
         return false;
     }
-    public String toString(){
+
+    public String toString() {
         return idStudent + "\t" + activityDate + "\t" + activityType + "\t" + description;
     }
 }

@@ -49,6 +49,6 @@ public class EnrolledCourse {
 
     @Override
     public String toString() {
-        return courseName+"\t"+session+"\t"+examDate+"\t"+finalGrade;
+        return courseName + "\t" + session + "\t" + examDate + "\t" + finalGrade;
     }
 }

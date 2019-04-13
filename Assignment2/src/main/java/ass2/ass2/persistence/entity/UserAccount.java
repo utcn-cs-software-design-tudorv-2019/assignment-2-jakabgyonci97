@@ -6,25 +6,26 @@ import java.io.Serializable;
 @Entity
 @Table(name = "useraccount")
 public class UserAccount implements Serializable {
-    public static final String[] ROLES = {"STUDENT","ADMIN"};
-    public static boolean isRoleValid(String role){
-        for(String itr: ROLES)
-            if(itr.compareTo(role)==0) return true;
-         return false;
+    public static final String[] ROLES = {"STUDENT", "ADMIN"};
+
+    public static boolean isRoleValid(String role) {
+        for (String itr : ROLES)
+            if (itr.compareTo(role) == 0) return true;
+        return false;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="userid",nullable = false)
+    @Column(name = "userid", nullable = false)
     private int userId;
 
-    @Column(name="username",length = 15, nullable = false)
+    @Column(name = "username", length = 15, nullable = false)
     private String userName;
 
-    @Column(name="userpassword",length = 10, nullable = false)
+    @Column(name = "userpassword", length = 10, nullable = false)
     private String userPassword;
 
-    @Column(name="usertype",length = 20, nullable = false)
+    @Column(name = "usertype", length = 20, nullable = false)
     private String userType;
 
     public UserAccount() {

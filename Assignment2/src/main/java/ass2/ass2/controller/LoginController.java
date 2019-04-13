@@ -17,28 +17,28 @@ public class LoginController {
     private LoginService loginService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ModelAndView viewLogin(){
+    public ModelAndView viewLogin() {
 
         UserAccount user = new UserAccount();
         ModelAndView mav = new ModelAndView("login");
-        mav.addObject("user",user);
+        mav.addObject("user", user);
         return mav;
     }
 
-    @RequestMapping(value="/", method= RequestMethod.POST)
-    public ModelAndView handleLogin(@ModelAttribute(value = "user") UserAccount user){
+    @RequestMapping(value = "/", method = RequestMethod.POST)
+    public ModelAndView handleLogin(@ModelAttribute(value = "user") UserAccount user) {
         UserAccount validUser = loginService.loginUser(user);
         System.out.println(validUser);
-        if(validUser != null){
-            if(validUser.getUserType().compareTo(UserAccount.ROLES[0])==0){
+        if (validUser != null) {
+            if (validUser.getUserType().compareTo(UserAccount.ROLES[0]) == 0) {
                 System.out.println("STUDENT");
                 Student student = loginService.loginAsStudent(validUser);
 
                 ModelAndView mav = new ModelAndView("studentProfile");
-                mav.addObject("student",student);
+                mav.addObject("student", student);
                 return mav;
             }
-            if(validUser.getUserType().compareTo(UserAccount.ROLES[1])==0){
+            if (validUser.getUserType().compareTo(UserAccount.ROLES[1]) == 0) {
                 System.out.println("ADMIN");
                 return new ModelAndView("adminProfile");
             }

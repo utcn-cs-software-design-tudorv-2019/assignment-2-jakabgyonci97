@@ -5,9 +5,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 
-public interface UserRepository extends JpaRepository<UserAccount,Integer> {
+public interface UserRepository extends JpaRepository<UserAccount, Integer> {
 
-
-    public UserAccount findUserByUserNameAndUserPassword(String userName, String userPassword);
+    public UserAccount findByUserId(int userId);
+    public UserAccount findByUserNameAndUserPassword(String userName, String userPassword);
 
 }

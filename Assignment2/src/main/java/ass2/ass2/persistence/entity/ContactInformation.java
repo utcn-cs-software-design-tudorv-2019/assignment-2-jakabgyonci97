@@ -4,24 +4,24 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="contactinformation")
+@Table(name = "contactinformation")
 public class ContactInformation implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "coninfoid",nullable = false)
-    private int coninfoid;
+    @Column(name = "idcontact", nullable = false)
+    private int idContact;
 
-    @Column(name = "idStudent")
+    @Column(name = "idstudent")
     private int idStudent;
 
-    @Column(name = "address",length = 20)
+    @Column(name = "address", length = 20)
     private String address;
 
-    @Column(name = "phoneNumber",length = 10)
+    @Column(name = "phonenumber", length = 10)
     private String phoneNumber;
 
-    @Column(name = "emailAddress",length = 15)
+    @Column(name = "emailaddress", length = 20)
     private String emailAddress;
 
     public ContactInformation(int idStudent, String address, String phoneNumber, String emailAddress) {
@@ -34,12 +34,12 @@ public class ContactInformation implements Serializable {
     public ContactInformation() {
     }
 
-    public int getConinfoid() {
-        return coninfoid;
+    public int getIdContact() {
+        return idContact;
     }
 
-    public void setConinfoid(int coninfoid) {
-        this.coninfoid = coninfoid;
+    public void setIdContact(int idContact) {
+        this.idContact = idContact;
     }
 
     public int getIdStudent() {
@@ -77,7 +77,7 @@ public class ContactInformation implements Serializable {
     @Override
     public String toString() {
         return "ContactInformation{" +
-                "coninfoid=" + coninfoid +
+                "coninfoid=" + idContact +
                 ", idStudent=" + idStudent +
                 ", address='" + address + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
@@ -85,8 +85,8 @@ public class ContactInformation implements Serializable {
                 '}';
     }
 
-    public ContactInformation clone(){
-        ContactInformation ci = new ContactInformation(this.idStudent,this.address,this.phoneNumber,this.emailAddress);
+    public ContactInformation clone() {
+        ContactInformation ci = new ContactInformation(this.idStudent, this.address, this.phoneNumber, this.emailAddress);
         return ci;
     }
 

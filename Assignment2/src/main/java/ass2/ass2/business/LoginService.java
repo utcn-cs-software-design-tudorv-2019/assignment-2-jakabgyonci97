@@ -19,20 +19,20 @@ public class LoginService {
 
     private Validator validator;
 
-    public LoginService(){
+    public LoginService() {
         validator = new Validator();
     }
 
-    public UserAccount loginUser(UserAccount user){
-        ValidatorResponse vrUserName = validator.validateUserName(user.getUserName(),USERNAME_LENGTH,Validator.CheckType.CHECK_ALL);
-        ValidatorResponse vrPassword = validator.validatePassword(user.getUserPassword(),PASSWORD_LENGTH,Validator.CheckType.CHECK_ALL);
+    public UserAccount loginUser(UserAccount user) {
+        ValidatorResponse vrUserName = validator.validateUserName(user.getUserName(), USERNAME_LENGTH, Validator.CheckType.CHECK_ALL);
+        ValidatorResponse vrPassword = validator.validatePassword(user.getUserPassword(), PASSWORD_LENGTH, Validator.CheckType.CHECK_ALL);
 
-        if(!vrUserName.isValid() && !vrPassword.isValid())
+        if (!vrUserName.isValid() && !vrPassword.isValid())
             return null;
-        return userRepository.findUserByUserNameAndUserPassword(user.getUserName(),user.getUserPassword());
+        return userRepository.findByUserNameAndUserPassword(user.getUserName(), user.getUserPassword());
     }
 
-    public Student loginAsStudent(UserAccount user){
+    public Student loginAsStudent(UserAccount user) {
         return studentRepository.findStudentByUserid(user.getUserId());
     }
 

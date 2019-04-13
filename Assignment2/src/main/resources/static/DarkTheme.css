@@ -10,7 +10,7 @@ body {
     HEADINGS
 --------------*/
 
-h1,h2,h3,h4,h5,h6 {
+h1, h2, h3, h4, h5, h6 {
     font-family: 'Merriweather', serif;
     font-style: normal;
     font-weight: bold;
@@ -28,7 +28,7 @@ h2 {
     font-size: 32px;
 }
 
-h2,h3 {
+h2, h3 {
     padding-bottom: 6px;
 }
 
@@ -55,43 +55,43 @@ p {
 /*--------------
     INPUTS
 --------------*/
-input[type=text]{
+input[type=text] {
     background-color: #f1f1f1;
     color: #555555;
     border: 2px solid #555555;
     border-radius: 4px;
 }
 
-input[type=text]:focus{
+input[type=text]:focus {
     border: 2px solid #26daff;
     border-radius: 4px;
 }
 
-input[type=password]{
+input[type=password] {
     background-color: #f1f1f1;
     color: #555555;
     border: 2px solid #555555;
     border-radius: 4px;
 }
 
-input[type=password]:focus{
+input[type=password]:focus {
     border: 2px solid #26daff;
     border-radius: 4px;
 }
 
-input[type=email]{
+input[type=email] {
     background-color: #f1f1f1;
     color: #555555;
     border: 2px solid #555555;
     border-radius: 4px;
 }
 
-input[type=email]:focus{
+input[type=email]:focus {
     border: 2px solid #26daff;
     border-radius: 4px;
 }
 
-input[type=button]{
+input[type=button] {
     background-color: white;
     color: black;
     padding: 15px 32px;
@@ -103,12 +103,12 @@ input[type=button]{
     border-radius: 4px;
 }
 
-input[type=button]:hover{
+input[type=button]:hover {
     background-color: #7b7c7f;
     color: white;
 }
 
-input[type=submit]{
+input[type=submit] {
     background-color: white;
     color: black;
     padding: 15px 32px;
@@ -120,7 +120,7 @@ input[type=submit]{
     border-radius: 4px;
 }
 
-input[type=submit]:hover{
+input[type=submit]:hover {
     background-color: #7b7c7f;
     color: white;
 }
@@ -137,18 +137,20 @@ input[type=submit]:hover{
     color: white;
 }
 
-.form-container{
+.form-container {
     text-align: left;
     background: #444547;
     color: #d0d5e0;
     padding: 5px 10px 10px 5px;
 }
-.header-container .header-bar  {
+
+.header-container .header-bar {
     position: absolute;
     right: 10px;
     bottom: 20px;
 }
-.header-container .header-bar  a  {
+
+.header-container .header-bar a {
     color: white;
     font-size: 20px;
 }
@@ -159,10 +161,12 @@ input[type=submit]:hover{
     padding: 5px 0px 0px 0px;
     border-top: 1px solid #ccc;
 }
+
 .menu-container {
     text-align: right;
     margin: 10px 5px;
 }
+
 .menu-container a {
     margin: 5px 5px 5px 10px;
     color: #004d99;

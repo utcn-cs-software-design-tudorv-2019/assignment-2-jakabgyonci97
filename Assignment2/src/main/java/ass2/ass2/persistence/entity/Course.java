@@ -5,27 +5,27 @@ import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
-@Table(name="course")
+@Table(name = "course")
 public class Course implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "courseId",nullable = false)
+    @Column(name = "courseid", nullable = false)
     private int courseId;
 
-    @Column(name = "courseName",length = 20)
+    @Column(name = "coursename", length = 20)
     private String name;
 
-    @Column(name = "courseSession",length = 9)
+    @Column(name = "coursesession", length = 9)
     private String session;
 
-    @Column(name = "examDate")
+    @Column(name = "examdate")
     private Date examDate;
 
-    @Column(name = "enrollmentKey",length = 10)
+    @Column(name = "enrollmentkey", length = 10)
     private String enrollmentKey;
 
-    public Course(){
+    public Course() {
         super();
     }
 
