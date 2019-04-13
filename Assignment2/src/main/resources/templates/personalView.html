@@ -6,23 +6,33 @@
     <link rel="stylesheet" type="text/css" th:href="@{/DarkTheme.css}"/>
 </head>
 <body>
+<th:block th:include="studentMenu"></th:block>
 <div class="form-container" xmlns:th="http://www.thymeleaf.org">
-    <form th:object="${personalInfo}" method="GET">
+    <h1>Personal Information</h1>
+    <hr>
+    <form th:object="${personalInfo}" method="POST">
+        <label>Student ID</label>
+        <input type="text" th:field="*{idStudent}" readonly/>
+        <br/><br/>
+
         <label>First Name</label>
-        <input type="text" th:field="*{firstName}" readonly/>
+        <input type="text" th:field="*{firstName}" pattern="[A-Za-z ]+"{15}/>
         <br/><br/>
 
         <label>Last Name</label>
-        <input type="text" th:field="*{lastName}" readonly/>
+        <input type="text" th:field="*{lastName}" pattern="[A-Za-z ]+"{15}/>
         <br/><br/>
 
         <label>Identity Card Number</label>
-        <input type="text" th:field="*{icn}" readonly/>
+        <input type="text" th:field="*{icn}" pattern="[A-Z0-9]+"{8}/>
         <br/><br/>
 
         <label>Personal Numerical Code</label>
-        <input type="text" th:field="*{pnc}" readonly/>
+        <input type="text" th:field="*{pnc}" pattern="[0-9]+"{13}/>
         <br/><br/>
+
+        <input type="submit" name = "action" value="Create"/>
+        <input type="submit" name = "action" value="Update"/>
     </form>
 </div>
 </body>

@@ -1,7 +1,6 @@
 <div class="menu-container" xmlns:th="http://www.thymeleaf.org">
-    <a th:href="@{/personalView}" style="color:#c6c9ce ; font-size:20px" th:name="action" th:value="Personal">Personal
-        Information </a>|
-    <a th:href="@{/studentView}" style="color:#c6c9ce ; font-size:20px">Student Information</a>|
-    <a th:href="@{/contactView}" style="color:#c6c9ce ; font-size:20px">Contact Information</a>|
-    <a th:href="@{/enrollmentView}" style="color:#c6c9ce ; font-size:20px">Enrolled Classes</a>
+    <a th:href="@{/studentProfile/personalInformation}" style="color:#c6c9ce ; font-size:20px" >Personal Information </a>
+    <a th:href="@{/studentProfile/studentInformation}" style="color:#c6c9ce ; font-size:20px">Student Information</a>
+    <a th:href="@{/studentProfile/contactInformation}" style="color:#c6c9ce ; font-size:20px">Contact Information</a>
+    <a th:href="@{/studentProfile/enrollmentInformation}" style="color:#c6c9ce ; font-size:20px">Enrolled Classes</a>
 </div>

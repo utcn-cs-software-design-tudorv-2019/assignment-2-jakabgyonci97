@@ -6,6 +6,56 @@
     <link rel="stylesheet" type="text/css" th:href="@{/DarkTheme.css}"/>
 </head>
 <body>
+<th:block th:include="studentMenu"></th:block>
+<div class="form-container" xmlns:th="http://www.thymeleaf.org">
+    <h1>Enrollment Information</h1>
+    <hr>
+    <h5>Enrolled Courses</h5>
+    <table  align="center">
+        <thead>
+        <tr>
+            <th>Course Name</th>
+            <th>Course Session</th>
+            <th>Date of Exam</th>
+            <th>Final Grade</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="enrolledCourse : ${ enrolledCourseList }">
 
+            <td th:text="${ enrolledCourse.courseName }"></td>
+            <td th:text="${ enrolledCourse.session }"></td>
+            <td th:text="${ enrolledCourse.examDate }"></td>
+            <td th:text="${ enrolledCourse.finalGrade }"></td>
+        </tr>
+        </tbody>
+    </table>
+    <hr>
+    <form th:object="${course}" method="POST">
+        <input type="hidden" th:object="${student}" th:field="*{studentid}" readonly />
+        <input type="hidden" th:object="${student}" th:field="*{userid}" readonly/>
+
+
+        <label>Search for Course</label>
+        <input type="text"  name="courseInfo" style="width: 400px"/>
+        <input type="submit" name = "action" value="Search"/>
+        <br/><br/>
+        <hr>
+
+        <label>Course Name</label>
+        <input type="text" th:field="*{name}" readonly/>
+        <br/><br/>
+
+        <label>Course Session</label>
+        <input type="text" th:field="*{session}" readonly/>
+        <br/><br/>
+
+        <label>Enter enrollment key</label>
+        <input type="text" th:field="*{enrollmentKey}" pattern="[a-zA-Z0-9]+"{10}/>
+        <br/><br/>
+
+        <input type="submit" name = "action" value="Enroll Me"/>
+    </form>
+</div>
 </body>
 </html>

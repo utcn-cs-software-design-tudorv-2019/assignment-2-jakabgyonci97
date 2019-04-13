@@ -6,24 +6,30 @@
     <link rel="stylesheet" type="text/css" th:href="@{/DarkTheme.css}"/>
 </head>
 <body>
+<th:block th:include="studentMenu"></th:block>
 <div class="form-container" xmlns:th="http://www.thymeleaf.org">
-    <form th:object="${studentInfo}" method="GET">
-        <label>Student Identification Number</label>
+    <h1>Student Information</h1>
+    <hr>
+    <form th:object="${studentInfo}" method = "POST">
+        <label>Student ID</label>
         <input type="text" th:field="*{idStudent}" readonly/>
         <br/><br/>
 
         <label>Group</label>
-        <input type="text" th:field="*{studGroup}" readonly/>
+        <input type="text" th:field="*{studGroup}" pattern="[0-9]+"{8}/>
         <br/><br/>
 
         <label>Scholarship Status</label>
-        <input type="text" th:field="*{scholarShipState}" readonly/>
+        <input type="text" th:field="*{scholarShipState}" pattern="[A-Z]+"{10}/>
         <br/><br/>
 
         <label>Average</label>
-        <input type="text" th:field="*{gradeAvrg}" readonly/>
+        <input type="text" th:field="*{gradeAvrg}" pattern="[0-9.]+"{5}/>
         <br/><br/>
 
+        <input type="submit" name = "action" value="Create"/>
+        <input type="submit" name = "action" value="Update"/>
+        <input type="submit" name = "action" value="Delete"/>
     </form>
 </div>
 </body>
