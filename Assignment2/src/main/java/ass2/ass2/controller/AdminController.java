@@ -2,6 +2,7 @@ package ass2.ass2.controller;
 
 import ass2.ass2.business.AdminService;
 import ass2.ass2.business.model.StudentProfile;
+import ass2.ass2.persistence.entity.Student;
 import ass2.ass2.persistence.entity.StudentActivity;
 import ass2.ass2.persistence.entity.StudentInformation;
 import org.springframework.stereotype.Controller;
@@ -10,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -20,97 +20,89 @@ public class AdminController {
     @Inject
     private AdminService adminService;
 
-    private List<StudentProfile> studentList;
-    private List<StudentActivity> studentActivityList;
-    private StudentProfile studentProfile;
-
-
-    /**
-     * create/view/update/delete student profiles
-     */
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ModelAndView viewStudentProfiles() {
-        studentList = adminService.viewStudents();
-        System.out.println("ADMIN HERE");
-        ModelAndView mav = new ModelAndView("adminProfile");
-        mav.addObject("studentProfiles", studentList);
+    public void viewAdminProfile(){}
+
+    @RequestMapping(value = "/studentProfiles", method = RequestMethod.GET)
+    public ModelAndView viewStudentProfiles(){
+        ModelAndView mav = new ModelAndView("studentProfiles");
+        List<StudentProfile> studentProfileList = adminService.viewStudents();
+        mav.addObject("studentProfileList",studentProfileList);
+
+        StudentProfile studentProfile = new StudentProfile();
+        mav.addObject("studentProfile",studentProfile);
+        return mav;
+    }
+
+    @RequestMapping(value = "/studentActivities", method = RequestMethod.GET)
+    public ModelAndView viewStudentActivities(){
+        ModelAndView mav = new ModelAndView("studentActivities");
+        List<StudentActivity> studentActivityList = adminService.viewActivities(null);
+        mav.addObject("studentActivityList",studentActivityList);
+
+        StudentProfile studentProfile = new StudentProfile();
+        mav.addObject("studentProfile",studentProfile);
         return mav;
     }
 
     @RequestMapping(value = "/studentProfiles", method = RequestMethod.POST)
-    public ModelAndView createStudentProfile(@RequestParam String action, @ModelAttribute(value = "newStudentProfile") StudentProfile newStudent) {
-        if (action.compareTo("Create") != 0) return new ModelAndView("redirect:/adminProfile/studentProfile");
+    public ModelAndView processStudentProfiles(@RequestParam(value = "action")String action,//
+    @ModelAttribute(value = "studentProfile") StudentProfile studentProfile){
+        ModelAndView mav = new ModelAndView("studentProfiles");
 
-        adminService.createStudent(newStudent);
-        studentList = adminService.viewStudents();
-        ModelAndView mav = new ModelAndView("student_profile_view");
-        mav.addObject("studentProfiles", studentList);
+        if(action.equals("Create")) createStudentProfile(studentProfile);
+        if(action.equals("Update")) updateStudentProfile(studentProfile);
+        if(action.equals("Delete")) deleteStudentProfile(studentProfile);
+
+        List<StudentProfile> studentProfileList = adminService.viewStudents();
+        mav.addObject("studentProfileList",studentProfileList);
+        mav.addObject("studentProfile",new StudentProfile());
         return mav;
     }
 
-    @RequestMapping(value = "/studentProfiles", method = RequestMethod.PUT)
-    public ModelAndView updateStudentProfile(@RequestParam String action, @ModelAttribute(value = "oldStudentProfile") StudentProfile oldStudent,//
-                                             @ModelAttribute(value = "newStudentProfile") StudentProfile newStudent) {
-        if (action.compareTo("Update") != 0) return new ModelAndView("redirect:/adminProfile/studentProfile");
+    private void createStudentProfile(StudentProfile studentProfile){
+        adminService.createStudent(studentProfile);
+    }
+
+    private void updateStudentProfile(StudentProfile studentProfile){
         StudentInformation si = new StudentInformation();
-        si.setIdStudent(oldStudent.getIdStudent());
-        si.setGroup(newStudent.getGroup());
-        si.setGradeAvrg(newStudent.getAverage());
-        si.setScholarShipState(newStudent.getScholarShipState());
-
-        adminService.updateStudent(oldStudent, si);
-
-        studentList = adminService.viewStudents();
-        ModelAndView mav = new ModelAndView("student_profile_view");
-        mav.addObject("studentProfiles", studentList);
-        return mav;
+        si.setIdStudent(studentProfile.getIdStudent());
+        si.setStudGroup(studentProfile.getGroup());
+        si.setGradeAvrg(studentProfile.getAverage());
+        si.setScholarShipState(studentProfile.getScholarShipState());
+        adminService.updateStudent(studentProfile,si);
     }
 
-    @RequestMapping(value = "/studentProfiles", method = RequestMethod.DELETE)
-    public ModelAndView deleteStudentProfile(@RequestParam String action, @ModelAttribute(value = "oldStudentProfile") StudentProfile oldStudent) {
-        if (action.compareTo("Delete") != 0) return new ModelAndView("redirect:/adminProfile/studentProfile");
-        adminService.deleteStudent(oldStudent);
 
-        studentList = adminService.viewStudents();
-        ModelAndView mav = new ModelAndView("student_profile_view");
-        mav.addObject("studentProfiles", studentList);
-        return mav;
+    private void deleteStudentProfile(StudentProfile studentProfile){
+        adminService.deleteStudent(studentProfile);
     }
 
-    /**
-     * generate reports based on student's activity for a time period
-     */
-    @RequestMapping(value = "/studentActivity", method = RequestMethod.GET)
-    public ModelAndView viewStudentActivities() {
-        studentActivityList = adminService.viewActivities(null);
 
+    @RequestMapping(value = "/studentActivities", method = RequestMethod.POST)
+    public ModelAndView processStudentActivities(@RequestParam(value = "action")String action,
+                                                 @RequestParam(value = "studentId") String studentId,
+                                                 @RequestParam(value = "startDate")LocalDate startDate,
+                                                 @RequestParam(value = "endDate") LocalDate endDate,
+                                                 @ModelAttribute(value = "studentProfile") StudentProfile studentProfile){
         ModelAndView mav = new ModelAndView("studentActivities");
-        mav.addObject("studentActivityList", studentActivityList);
+        if(action.equals("search")) searchForStudent(mav,studentId);
+        if(action.equals("filter")) filterStudentActivities(mav,studentProfile,startDate,endDate);
         return mav;
     }
 
-    @RequestMapping(value = "/studentActivity", method = RequestMethod.POST)
-    public ModelAndView findStudent(@RequestParam String action, @RequestParam String idStudent) {
-        if (action.compareTo("Search") != 0) return new ModelAndView("redirect:/adminProfile/studentActivity");
-        studentProfile = adminService.findStudent(idStudent);
+    private void searchForStudent(ModelAndView mav,String studentId){
+        StudentProfile studentProfile = adminService.findStudent(studentId);
+        mav.addObject("studentProfile",studentProfile);
 
-        studentActivityList = adminService.viewActivities(studentProfile);
-        ModelAndView mav = new ModelAndView("studentActivities");
-        mav.addObject("studentActivityList", studentActivityList);
-        return mav;
+        List<StudentActivity> studentActivityList = adminService.viewActivities(studentProfile);
+        mav.addObject("studentActivityList",studentActivityList);
     }
 
-    @RequestMapping(value = "/studentActivity", method = RequestMethod.PUT)
-    public ModelAndView filterStudentActivities(@RequestParam String action, @RequestParam String startDate, @RequestParam String endDate) {
-        if (action.compareTo("Filter") != 0) return new ModelAndView("redirect:/adminProfile/studentActivity");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/MM/yyyy");
-
-        LocalDate start = LocalDate.parse(startDate, formatter);
-        LocalDate end = LocalDate.parse(endDate, formatter);
-
-        studentActivityList = adminService.filterActivities(studentProfile, start, end);
-        ModelAndView mav = new ModelAndView("studentActivities");
-        mav.addObject("studentActivityList", studentActivityList);
-        return mav;
+    private void filterStudentActivities(ModelAndView mav,StudentProfile studentProfile,LocalDate startDate,LocalDate endDate){
+        List<StudentActivity> studentActivityList = adminService.filterActivities(studentProfile,startDate,endDate);
+        mav.addObject("studentActivityList",studentActivityList);
+        mav.addObject("studentProfile",studentProfile);
     }
+
 }

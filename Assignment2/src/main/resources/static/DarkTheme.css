@@ -126,6 +126,18 @@ input[type=submit]:hover {
     color: white;
 }
 
+input[type=date] {
+    background-color: #f1f1f1;
+    color: #555555;
+    border: 2px solid #555555;
+    border-radius: 4px;
+}
+
+input[type=date]:focus {
+    border: 2px solid #26daff;
+    border-radius: 4px;
+}
+
 /*--------------
     TABLE
 --------------*/

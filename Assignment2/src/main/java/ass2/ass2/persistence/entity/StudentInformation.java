@@ -66,14 +66,6 @@ public class StudentInformation implements Serializable {
         this.idStudent = idStudent;
     }
 
-    public String getGroup() {
-        return studGroup;
-    }
-
-    public void setGroup(String studGroup) {
-        this.studGroup = studGroup;
-    }
-
     public String getScholarShipState() {
         return scholarShipState;
     }
@@ -105,7 +97,7 @@ public class StudentInformation implements Serializable {
         StudentInformation si = new StudentInformation();
         si.setStudentId(this.studentId);
         si.setIdStudent(this.idStudent);
-        si.setGroup(this.studGroup);
+        si.setStudGroup(this.studGroup);
         si.setScholarShipState(this.scholarShipState);
         si.setGradeAvrg(this.gradeAvrg);
         return si;

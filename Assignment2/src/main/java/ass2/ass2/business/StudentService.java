@@ -104,7 +104,7 @@ public class StudentService {
      * create/view/update/delete student's student information
      */
     public String createStudentInfo(Student student, StudentInformation si) {
-        ValidatorResponse v1 = validator.validatePersonalNumericalCode(si.getGroup(), GROUP_LIMIT, Validator.CheckType.CHECK_ALL);
+        ValidatorResponse v1 = validator.validatePersonalNumericalCode(si.getStudGroup(), GROUP_LIMIT, Validator.CheckType.CHECK_ALL);
         ValidatorResponse v2 = validator.validateScholarShipState(si.getScholarShipState(), Validator.CheckType.CHECK_ALL);
         ValidatorResponse v3 = validator.validateDoubleNumber(Double.toString(si.getGradeAvrg()), GRADE_LOWEST_LIMIT, GRADE_HIGHEST_LIMIT, Validator.CheckType.CHECK_ALL);
         if (!v1.isValid()) return v1.getMessage();
@@ -125,7 +125,7 @@ public class StudentService {
 
     public String updateStudentInfo(StudentInformation siOld, StudentInformation si) {
         if (siOld == null) return NULL_ERROR;
-        ValidatorResponse v1 = validator.validatePersonalNumericalCode(si.getGroup(), GROUP_LIMIT, Validator.CheckType.NO_NULL_CHECK);
+        ValidatorResponse v1 = validator.validatePersonalNumericalCode(si.getStudGroup(), GROUP_LIMIT, Validator.CheckType.NO_NULL_CHECK);
         ValidatorResponse v2 = validator.validateScholarShipState(si.getScholarShipState(), Validator.CheckType.NO_NULL_CHECK);
         ValidatorResponse v3 = validator.validateDoubleNumber(Double.toString(si.getGradeAvrg()), GRADE_LOWEST_LIMIT, GRADE_HIGHEST_LIMIT, Validator.CheckType.NO_NULL_CHECK);
 
@@ -134,7 +134,7 @@ public class StudentService {
         if (!v3.isValid()) return v3.getMessage();
 
         StudentInformation siNew = siOld.clone();
-        if (si.getGroup() != null && !si.getGroup().isEmpty()) siNew.setGroup(si.getGroup());
+        if (si.getStudGroup() != null && !si.getStudGroup().isEmpty()) siNew.setStudGroup(si.getStudGroup());
         if (si.getScholarShipState() != null && !si.getScholarShipState().isEmpty()) {
             siNew.setScholarShipState(si.getScholarShipState());
         }

@@ -68,4 +68,16 @@ public class StudentProfile {
     public void setAverage(double average) {
         this.average = average;
     }
+
+    @Override
+    public String toString() {
+        return "StudentProfile{" +
+                "idStudent=" + idStudent +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", group='" + group + '\'' +
+                ", scholarShipState='" + scholarShipState + '\'' +
+                ", average=" + average +
+                '}';
+    }
 }

@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Student Activities</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/DarkTheme.css}"/>
+</head>
+<body>
+<th:block th:include="adminMenu"></th:block>
+<div>
+    <div class="form-container" xmlns:th="http://www.thymeleaf.org">
+        <h2>Student Activities</h2>
+        <hr>
+        <table  align="center">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="studenActivity : ${ studentActivityList }">
+
+                <td th:text="${ studenActivity.idStudent}"></td>
+                <td th:text="${ studenActivity.activityDate}"></td>
+                <td th:text="${ studenActivity.activityType}"></td>
+                <td th:text="${ studenActivity.description}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <hr>
+        <form th:object="${studentProfile}" method="POST">
+            <label>Search for Student</label>
+            <input type="text"  name="studentId" style="width: 400px" pattern="[0-9]+"{8}/>
+            <input type="submit" name = "action" value="Search"/>
+            <hr>
+
+            <label>Student ID</label>
+            <input type="number" th:field="*{idStudent}" readonly/>
+            <br/><br/>
+
+            <label>First Name</label>
+            <input type="text" th:field="*{firstName}" readonly/>
+            <br/><br/>
+
+            <label>Last Name</label>
+            <input type="text" th:field="*{lastName}" readonly/>
+            <br/><br/>
+
+            <label>Group</label>
+            <input type="text" th:field="*{group}" readonly/>
+            <br/><br/>
+
+            <label>Scholarship</label>
+            <input type="text" th:field="*{scholarShipState}" readonly}/>
+            <br/><br/>
+
+            <label>Average</label>
+            <input type="text" th:field="*{average}" readonly/>
+            <br/><br/>
+
+            <input type="date" name = "startDate"/>
+            <input type="date" name = "endDate"/>
+            <br/><br/>
+            <input type="submit" name = "action" value="Filter"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

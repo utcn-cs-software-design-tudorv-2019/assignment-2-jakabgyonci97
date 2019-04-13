@@ -6,23 +6,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/DarkTheme.css}"/>
 </head>
 <body>
+<th:block th:include="adminMenu"></th:block>
 <div>
-    <table border="1">
-        <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Group</th>
-            <th>Scholarship Status</th>
-            <th>Average</th>
-        </tr>
-        <tr th:each="studentProfile : ${studentProfiles}">
-            <td th:utext="${studentProfile.firstName}">...</td>
-            <td th:utext="${studentProfile.lastName}">...</td>
-            <td th:utext="${studentProfile.group}">...</td>
-            <td th:utext="${studentProfile.scholarShipState}">...</td>
-            <td th:utext="${studentProfile.average}">...</td>
-        </tr>
-    </table>
+
 </div>
 </body>
 </html>

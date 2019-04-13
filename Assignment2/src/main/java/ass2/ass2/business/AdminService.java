@@ -107,11 +107,11 @@ public class AdminService {
             if (pi != null) {
                 sp.setFirstName(pi.getFirstName());
                 sp.setLastName(pi.getLastName());
-                if (si != null) {
-                    sp.setGroup(si.getGroup());
-                    sp.setAverage(si.getGradeAvrg());
-                    sp.setScholarShipState(si.getScholarShipState());
-                }
+            }
+            if (si != null) {
+                sp.setGroup(si.getStudGroup());
+                sp.setAverage(si.getGradeAvrg());
+                sp.setScholarShipState(si.getScholarShipState());
             }
             studentProfiles.add(sp);
         }
@@ -122,7 +122,7 @@ public class AdminService {
      * observation: neither admin can update student id -> primary key of table
      */
     public String updateStudent(StudentProfile student, StudentInformation studentInformation) {
-        ValidatorResponse v3 = validator.validatePersonalNumericalCode(studentInformation.getGroup(), GROUP_LIMIT, Validator.CheckType.NO_NULL_CHECK);
+        ValidatorResponse v3 = validator.validatePersonalNumericalCode(studentInformation.getStudGroup(), GROUP_LIMIT, Validator.CheckType.NO_NULL_CHECK);
         if (!v3.isValid()) return v3.getMessage();
         ValidatorResponse v4 = validator.validateDoubleNumber(studentInformation.getGradeAvrg() + "", GRADE_LOWEST_LIMIT, GRADE_HIGHEST_LIMIT, Validator.CheckType.NO_NULL_CHECK);
         if (!v4.isValid()) return v4.getMessage();
@@ -136,8 +136,8 @@ public class AdminService {
 
         StudentInformation siNew = siOld.clone();
 
-        if (studentInformation.getGroup() != null && !studentInformation.getGroup().isEmpty())
-            siNew.setGroup(studentInformation.getGroup());
+        if (studentInformation.getStudGroup() != null && !studentInformation.getStudGroup().isEmpty())
+            siNew.setStudGroup(studentInformation.getStudGroup());
         if (studentInformation.getScholarShipState() != null && !studentInformation.getScholarShipState().isEmpty())
             siNew.setScholarShipState(studentInformation.getScholarShipState());
         if (siOld.getGradeAvrg() != studentInformation.getGradeAvrg())
@@ -173,7 +173,7 @@ public class AdminService {
         if (si == null) return null;
         if (pi == null) return null;
 
-        StudentProfile sp = new StudentProfile(student.getStudentid(), pi.getFirstName(), pi.getLastName(), si.getGroup(), si.getScholarShipState(), si.getGradeAvrg());
+        StudentProfile sp = new StudentProfile(student.getStudentid(), pi.getFirstName(), pi.getLastName(), si.getStudGroup(), si.getScholarShipState(), si.getGradeAvrg());
         return sp;
     }
 
