@@ -77,6 +77,17 @@ public class Course implements Serializable {
     }
 
     @Override
+    public Course clone() {
+        Course course = new Course();
+        course.setCourseId(this.courseId);
+        course.setName(this.name);
+        course.setSession(this.session);
+        course.setExamDate(this.examDate);
+        course.setEnrollmentKey(this.enrollmentKey);
+        return course;
+    }
+
+    @Override
     public String toString() {
         return "Course{" +
                 "id=" + courseId +

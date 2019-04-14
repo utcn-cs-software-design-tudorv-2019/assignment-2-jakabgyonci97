@@ -42,7 +42,8 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/studentInformation", method = RequestMethod.POST)
-    public ModelAndView studentInformationOperations(@RequestParam(value = "action") String action,@ModelAttribute(value = "studentInfo") StudentInformation newSi) {
+    public ModelAndView studentInformationOperations(@RequestParam(value = "action") String action,
+                                                     @ModelAttribute(value = "studentInfo") StudentInformation newSi) {
         ModelAndView mav;
         Student student = new Student(newSi.getIdStudent(),1);
         if(action.equals("Create")) mav = createStudentInformation(student,newSi);
@@ -108,7 +109,8 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/personalInformation", method = RequestMethod.POST)
-    public ModelAndView personalInformationOperations(@RequestParam(value = "action") String action,@ModelAttribute(value = "personalInfo") PersonalInformation newPi) {
+    public ModelAndView personalInformationOperations(@RequestParam(value = "action") String action,
+                                                      @ModelAttribute(value = "personalInfo") PersonalInformation newPi) {
         ModelAndView mav;
         Student student = new Student(newPi.getIdStudent(),1);
         if(action.equals("Create")) mav = createPersonalInformation(student,newPi);
@@ -158,7 +160,7 @@ public class StudentController {
         ContactInformation ci = studentService.viewContactInfo(student);
         if(ci == null) {
             ci = new ContactInformation();
-            ci.setIdStudent(studentId);
+            ci.setIdStudent(student.getStudentid());
         }
 
         ModelAndView mav = new ModelAndView("contactView");
@@ -167,10 +169,10 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/contactInformation", method = RequestMethod.POST)
-    public ModelAndView contactInformationOperations(@RequestParam(value = "action") String action,@ModelAttribute(value = "contactInfo") ContactInformation newCi) {
+    public ModelAndView contactInformationOperations(@RequestParam(value = "action") String action,
+                                                     @ModelAttribute(value = "contactInfo") ContactInformation newCi) {
         ModelAndView mav;
         Student student = new Student(newCi.getIdStudent(),1);
-        ContactInformation ci = studentService.viewContactInfo(student);
         if(action.equals("Create")) mav = createContactInformation(student,newCi);
         else if(action.equals("Update")) mav = updateContactInformation(student,newCi);
         else mav = deleteContactInformation(newCi);
@@ -179,19 +181,19 @@ public class StudentController {
 
     private ModelAndView createContactInformation(Student student, ContactInformation newCi){
         ContactInformation ci = studentService.viewContactInfo(student);
+        ModelAndView mav = new ModelAndView("contactView");
         if(ci != null){
-            ModelAndView mav = new ModelAndView("contactView");
             mav.addObject("contactInfo", ci);
             return mav;
         }
+
         studentService.createContactInfo(student,newCi);
         ci = studentService.viewContactInfo(student);
+
         if(ci == null){
-            ModelAndView mav = new ModelAndView("contactView");
-            mav.addObject("contactInfo", new ContactInformation());
-            return mav;
+            ci = new ContactInformation();
+            ci.setIdStudent(student.getStudentid());
         }
-        ModelAndView mav = new ModelAndView("contactView");
         mav.addObject("contactInfo", ci);
         return mav;
     }
@@ -258,6 +260,7 @@ public class StudentController {
 
         Course course = studentService.searchForCourse(courseNameSession);
         if(course == null) course = new Course();
+        course = course.clone();
         course.setEnrollmentKey("");
         mav.addObject("course",course);
     }

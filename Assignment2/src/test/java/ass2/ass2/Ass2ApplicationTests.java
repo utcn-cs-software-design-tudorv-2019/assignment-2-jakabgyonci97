@@ -137,7 +137,7 @@ public class Ass2ApplicationTests {
 
     @Test
     public void testCourseRepository(){
-        Course course = courseRepository.findCourseByNameAndSession("LFT","2018/2019");
+        Course course = courseRepository.findByNameAndSession("LFT","2018/2019");
         System.out.println(course);
     }
 

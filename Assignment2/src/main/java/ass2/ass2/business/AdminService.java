@@ -92,7 +92,6 @@ public class AdminService {
         siRepo.save(si);
         return null;
     }
-
     public List<StudentProfile> viewStudents() {
         List<StudentProfile> studentProfiles = new ArrayList<>();
         List<Student> students = studentRepository.findAll();
@@ -117,40 +116,25 @@ public class AdminService {
         }
         return studentProfiles;
     }
+    public String updateStudent(StudentProfile studentProfile) {
+        ValidatorResponse v1 = validator.validateIntegerNumber(studentProfile.getIdStudent()+"", ID_LOWEST_LIMIT, ID_HIGHEST_LIMIT, Validator.CheckType.CHECK_ALL);
+        if (!v1.isValid()) return v1.getMessage();
 
-    /**
-     * observation: neither admin can update student id -> primary key of table
-     */
-    public String updateStudent(StudentProfile student, StudentInformation studentInformation) {
-        ValidatorResponse v3 = validator.validatePersonalNumericalCode(studentInformation.getStudGroup(), GROUP_LIMIT, Validator.CheckType.NO_NULL_CHECK);
-        if (!v3.isValid()) return v3.getMessage();
-        ValidatorResponse v4 = validator.validateDoubleNumber(studentInformation.getGradeAvrg() + "", GRADE_LOWEST_LIMIT, GRADE_HIGHEST_LIMIT, Validator.CheckType.NO_NULL_CHECK);
-        if (!v4.isValid()) return v4.getMessage();
-        ValidatorResponse v5 = validator.validateScholarShipState(studentInformation.getScholarShipState(), Validator.CheckType.NO_NULL_CHECK);
-        if (!v5.isValid()) return v5.getMessage();
-        if (!StudentInformation.isValidScholarShip(studentInformation.getScholarShipState()))
-            return "Invalid scholarship status!";
-
-        StudentInformation siOld = siRepo.findStudentInformationByIdStudent(student.getIdStudent());
+        StudentInformation siOld = siRepo.findStudentInformationByIdStudent(studentProfile.getIdStudent());
         if (siOld == null) return "You cannot update something that does not exist ... supped!";
 
-        StudentInformation siNew = siOld.clone();
+        if (!studentProfile.getScholarShipState().equals("") && StudentInformation.isValidScholarShip(studentProfile.getScholarShipState()))
+            return "Invalid scholarship status!";
 
-        if (studentInformation.getStudGroup() != null && !studentInformation.getStudGroup().isEmpty())
-            siNew.setStudGroup(studentInformation.getStudGroup());
-        if (studentInformation.getScholarShipState() != null && !studentInformation.getScholarShipState().isEmpty())
-            siNew.setScholarShipState(studentInformation.getScholarShipState());
-        if (siOld.getGradeAvrg() != studentInformation.getGradeAvrg())
-            siNew.setGradeAvrg(studentInformation.getGradeAvrg());
+        StudentInformation siNew = siOld.clone();
+        if (!studentProfile.getGroup().equals("")) siNew.setStudGroup(studentProfile.getGroup());
+        if (!studentProfile.getScholarShipState().equals("")) siNew.setScholarShipState(studentProfile.getScholarShipState());
+        if (siOld.getGradeAvrg() != studentProfile.getAverage() && studentProfile.getAverage() != 0.0) siNew.setGradeAvrg(studentProfile.getAverage());
 
         siRepo.delete(siOld);
         siRepo.save(siNew);
         return null;
     }
-
-    /**
-     * observation: delete operation refers only to student information, NOT whole student profile
-     */
     public String deleteStudent(StudentProfile student) {
         StudentInformation si = siRepo.findStudentInformationByIdStudent(student.getIdStudent());
         if (si == null) return "You cannot delete something that does not exist...supped!";
@@ -176,7 +160,6 @@ public class AdminService {
         StudentProfile sp = new StudentProfile(student.getStudentid(), pi.getFirstName(), pi.getLastName(), si.getStudGroup(), si.getScholarShipState(), si.getGradeAvrg());
         return sp;
     }
-
     public List<StudentActivity> filterActivities(StudentProfile student, LocalDate startDate, LocalDate endDate) {
         if (student == null) return null;
         if (startDate.isAfter(endDate)) return null;
@@ -190,7 +173,6 @@ public class AdminService {
         }
         return filteredActivities;
     }
-
     public List<StudentActivity> viewActivities(StudentProfile student) {
         if (student == null) {
             List<StudentActivity> studentActivities = saRepo.findAll();

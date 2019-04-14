@@ -9,8 +9,10 @@
 <th:block th:include="studentMenu"></th:block>
 <div class="form-container" xmlns:th="http://www.thymeleaf.org">
     <form th:object="${student}" method="GET">
-        <label>Student ID</label>
-        <input type="text" th:field="*{studentid}" readonly/>
+        <h2>Welcome!</h2>
+        <h3>You are logged in to student profile</h3>
+
+        <input type="hidden" th:field="*{studentid}" readonly/>
         <br/><br/>
     </form>
 </div>

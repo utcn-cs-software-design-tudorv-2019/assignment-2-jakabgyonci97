@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -64,15 +65,7 @@ public class AdminController {
         adminService.createStudent(studentProfile);
     }
 
-    private void updateStudentProfile(StudentProfile studentProfile){
-        StudentInformation si = new StudentInformation();
-        si.setIdStudent(studentProfile.getIdStudent());
-        si.setStudGroup(studentProfile.getGroup());
-        si.setGradeAvrg(studentProfile.getAverage());
-        si.setScholarShipState(studentProfile.getScholarShipState());
-        adminService.updateStudent(studentProfile,si);
-    }
-
+    private void updateStudentProfile(StudentProfile studentProfile){ adminService.updateStudent(studentProfile);}
 
     private void deleteStudentProfile(StudentProfile studentProfile){
         adminService.deleteStudent(studentProfile);
@@ -82,12 +75,17 @@ public class AdminController {
     @RequestMapping(value = "/studentActivities", method = RequestMethod.POST)
     public ModelAndView processStudentActivities(@RequestParam(value = "action")String action,
                                                  @RequestParam(value = "studentId") String studentId,
-                                                 @RequestParam(value = "startDate")LocalDate startDate,
-                                                 @RequestParam(value = "endDate") LocalDate endDate,
+                                                 @RequestParam(value = "startDate")String sDate,
+                                                 @RequestParam(value = "endDate") String eDate,
                                                  @ModelAttribute(value = "studentProfile") StudentProfile studentProfile){
+
         ModelAndView mav = new ModelAndView("studentActivities");
-        if(action.equals("search")) searchForStudent(mav,studentId);
-        if(action.equals("filter")) filterStudentActivities(mav,studentProfile,startDate,endDate);
+        if(action.equals("Search")) searchForStudent(mav,studentId);
+        if(action.equals("Filter")) {
+            LocalDate startDate = dateParser(sDate);
+            LocalDate endDate = dateParser(eDate);
+            filterStudentActivities(mav,studentProfile,startDate,endDate);
+        }
         return mav;
     }
 
@@ -103,6 +101,21 @@ public class AdminController {
         List<StudentActivity> studentActivityList = adminService.filterActivities(studentProfile,startDate,endDate);
         mav.addObject("studentActivityList",studentActivityList);
         mav.addObject("studentProfile",studentProfile);
+    }
+
+    private LocalDate dateParser(String date){
+        String[] splitResult = date.split("-");
+        int year = Integer.parseInt(splitResult[0]);
+        int month = Integer.parseInt(splitResult[1]);
+        int day = Integer.parseInt(splitResult[2]);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        if(day >= 0 && day <= 9) date = "0"+day+"/";
+        else date = day+"/";
+        if(month >= 0 && month <= 9) date = date+"0"+month+"/";
+        else date = date+month+"/";
+        date = date+year;
+        return LocalDate.parse(date, formatter);
     }
 
 }

@@ -10,7 +10,7 @@ import javax.transaction.Transactional;
 @Transactional
 public interface CourseRepository extends JpaRepository<Course, Integer> {
 
-    public Course findCourseByNameAndSession(String name, String session);
+    public Course findByNameAndSession(String name, String session);
 
     public Course findCourseByCourseId(int courseId);
 }

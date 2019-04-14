@@ -45,7 +45,7 @@ h4 {
 }
 
 p {
-    color: #777;
+    color: #303133;
     font-size: 15px;
     font-weight: 300;
     line-height: 26px;
@@ -61,6 +61,8 @@ input[type=text] {
     color: #555555;
     border: 2px solid #555555;
     border-radius: 4px;
+    padding: 8px 40px;
+    text-align: left;
 }
 
 input[type=text]:focus {
@@ -73,6 +75,8 @@ input[type=password] {
     color: #555555;
     border: 2px solid #555555;
     border-radius: 4px;
+    padding: 8px 40px;
+    text-align: left;
 }
 
 input[type=password]:focus {
@@ -85,6 +89,8 @@ input[type=email] {
     color: #555555;
     border: 2px solid #555555;
     border-radius: 4px;
+    padding: 8px 40px;
+    text-align: left;
 }
 
 input[type=email]:focus {
@@ -95,7 +101,7 @@ input[type=email]:focus {
 input[type=button] {
     background-color: white;
     color: black;
-    padding: 4px 20px;
+    padding: 8px 20px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -144,7 +150,7 @@ input[type=date]:focus {
 
 table {
     border-collapse: collapse;
-    width: 100%;
+    width: 60%;
 }
 
 th, td {
@@ -174,33 +180,37 @@ th {
 }
 
 .form-container {
+    margin-top: 3%;
+    margin-left: 10%;
+    width: 80%;
     text-align: center;
     background: #444547;
     color: #d0d5e0;
     padding: 20px 10px 10px 5px;
+    border-radius: 6px;
 }
 
-.header-container .header-bar {
-    position: absolute;
-    right: 10px;
-    bottom: 20px;
-}
-
-.header-container .header-bar a {
-    color: white;
-    font-size: 20px;
-}
-
-.footer-container {
+.login-container {
+    margin-top: 8%;
+    margin-left : 25%;
+    width: 50%;
     text-align: center;
-    margin-top: 10px;
-    padding: 5px 0px 0px 0px;
-    border-top: 1px solid #ccc;
+    background: #75797f;
+    color: #d0d5e0;
+    padding: 20px 40px 20px 20px;
+    border: #f1f1f1;
+    border-radius: 6px;
 }
 
 .menu-container {
+    margin-top: 2%;
+    margin-left : 25%;
+    width: 50%;
+    height: 10%;
     text-align: center;
-    margin: 10px 5px;
+    background: #75797f;
+    border: #f1f1f1;
+    border-radius: 6px;
 }
 
 .menu-container a {

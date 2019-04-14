@@ -7,15 +7,19 @@
 </head>
 <body>
 <div>
-    <div class="form-container" xmlns:th="http://www.thymeleaf.org">
+    <div class="login-container" xmlns:th="http://www.thymeleaf.org">
+        <img src="https://26degreessoftware.com/wp-content/uploads/2017/12/login-icon.png" style="width: 220px; height: 220px">
+        <br/><br/><br/>
         <form th:object="${user}" method="POST">
 
-            User Name: &nbsp;
+            <label>Username</label> &nbsp;
             <input type="text" th:field="*{userName}" pattern="[A-Za-z0-9_]+" {15}/>
             <br/><br/>
-            Password: &nbsp;
+            <label>Password</label> &nbsp;
             <input type="password" th:field="*{userPassword}" pattern="[A-Za-z0-9_+!?~&$@]+" {10}/>
-            <br/><br/>
+            <br/>
+            <p>Password may contain lower,uppercase letters and special characters such as : _+!?~&$@</p>
+            <br/>
 
             <input type="submit" value="Login"/>
         </form>

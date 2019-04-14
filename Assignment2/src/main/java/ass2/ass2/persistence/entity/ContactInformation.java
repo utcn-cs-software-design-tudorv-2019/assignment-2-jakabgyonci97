@@ -15,13 +15,13 @@ public class ContactInformation implements Serializable {
     @Column(name = "idstudent")
     private int idStudent;
 
-    @Column(name = "address", length = 20)
+    @Column(name = "address", length = 30)
     private String address;
 
-    @Column(name = "phonenumber", length = 10)
+    @Column(name = "phonenumber", length = 11)
     private String phoneNumber;
 
-    @Column(name = "emailaddress", length = 20)
+    @Column(name = "emailaddress", length = 30)
     private String emailAddress;
 
     public ContactInformation(int idStudent, String address, String phoneNumber, String emailAddress) {

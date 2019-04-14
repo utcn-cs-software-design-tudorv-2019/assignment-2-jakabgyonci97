@@ -22,7 +22,7 @@ public class StudentService {
     private static final int GROUP_LIMIT = 6;
     private static final double GRADE_LOWEST_LIMIT = 1.0;
     private static final double GRADE_HIGHEST_LIMIT = 10.0;
-    private static final int ADDRESS_LIMIT = 20;
+    private static final int ADDRESS_LIMIT = 30;
     private static final int PHONE_NUM_LIMIT = 10;
     private static final int ENROLLMENT_KEY_LIMIT = 10;
     private static final String ENROLLMENT_ERROR = "Enrollment key was invalid!";
@@ -158,6 +158,8 @@ public class StudentService {
      * create/view/update/delete student's contact information
      */
     public String createContactInfo(Student student, ContactInformation ci) {
+        System.out.println(ci);
+
         ValidatorResponse v1 = validator.validateAddress(ci.getAddress(), ADDRESS_LIMIT, Validator.CheckType.CHECK_ALL);
         ValidatorResponse v2 = validator.validatePersonalNumericalCode(ci.getPhoneNumber(), PHONE_NUM_LIMIT, Validator.CheckType.CHECK_ALL);
         ValidatorResponse v3 = validator.validateEmailAddress(ci.getEmailAddress(), ADDRESS_LIMIT, Validator.CheckType.CHECK_ALL);
@@ -165,7 +167,6 @@ public class StudentService {
         if (!v2.isValid()) return v2.getMessage();
         if (!v3.isValid()) return v3.getMessage();
 
-        ci.setIdStudent(student.getStudentid());
         ciRepo.save(ci);
 
         logStudentActivity(student.getStudentid(), "CREATE", "Create contact information section");
@@ -188,7 +189,7 @@ public class StudentService {
         ContactInformation ciNew = ciOld.clone();
         if (ci.getAddress() != null && !ci.getAddress().isEmpty()) ciNew.setAddress(ci.getAddress());
         if (ci.getPhoneNumber() != null && !ci.getPhoneNumber().isEmpty()) ciNew.setPhoneNumber(ci.getPhoneNumber());
-        if (ci.getEmailAddress() != null && !ci.getEmailAddress().isEmpty()) ciNew.setPhoneNumber(ci.getEmailAddress());
+        if (ci.getEmailAddress() != null && !ci.getEmailAddress().isEmpty()) ciNew.setEmailAddress(ci.getEmailAddress());
 
         ciRepo.delete(ciOld);
         ciRepo.save(ciNew);
@@ -214,7 +215,7 @@ public class StudentService {
         String courseName = splitText[0];
         String session = splitText[1];
 
-        return courseRepository.findCourseByNameAndSession(courseName, session);
+        return courseRepository.findByNameAndSession(courseName, session);
     }
 
     public String processEnrollment(Student student, Course course, String enrollmentKey) {
