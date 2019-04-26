@@ -2,8 +2,9 @@ package ass2.ass2.business;
 
 import ass2.ass2.persistence.entity.*;
 import ass2.ass2.persistence.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.inject.Inject;
 
 
 @Service()
@@ -11,10 +12,10 @@ public class LoginService {
     private static final int USERNAME_LENGTH = 15;
     private static final int PASSWORD_LENGTH = 10;
 
-    @Autowired
+    @Inject
     UserRepository userRepository;
 
-    @Autowired
+    @Inject
     StudentRepository studentRepository;
 
     private Validator validator;

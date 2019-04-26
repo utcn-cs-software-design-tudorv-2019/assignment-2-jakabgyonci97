@@ -223,7 +223,13 @@ public class StudentService {
         if (!vR.isValid()) return vR.getMessage();
         if (enrollmentKey.compareTo(course.getEnrollmentKey()) != 0) return ENROLLMENT_ERROR;
 
+        List<Enrollment> enrollments = enrollmentRepository.findAllByIdStudent(student.getStudentid());
         Enrollment e = new Enrollment(course.getCourseId(), student.getStudentid(), 0.0);
+
+        for(Enrollment en: enrollments){
+            if(en.getIdCourse() == e.getIdCourse())
+                return null;
+        }
         enrollmentRepository.save(e);
         logStudentActivity(student.getStudentid(), "ENROLLMENT", "Student enrollment to " + course.getName());
         return null;

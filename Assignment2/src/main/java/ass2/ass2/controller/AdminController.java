@@ -2,9 +2,7 @@ package ass2.ass2.controller;
 
 import ass2.ass2.business.AdminService;
 import ass2.ass2.business.model.StudentProfile;
-import ass2.ass2.persistence.entity.Student;
 import ass2.ass2.persistence.entity.StudentActivity;
-import ass2.ass2.persistence.entity.StudentInformation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -91,7 +89,8 @@ public class AdminController {
 
     private void searchForStudent(ModelAndView mav,String studentId){
         StudentProfile studentProfile = adminService.findStudent(studentId);
-        mav.addObject("studentProfile",studentProfile);
+        if(studentProfile == null) mav.addObject("studentProfile",new StudentProfile());
+        else mav.addObject("studentProfile",studentProfile);
 
         List<StudentActivity> studentActivityList = adminService.viewActivities(studentProfile);
         mav.addObject("studentActivityList",studentActivityList);
